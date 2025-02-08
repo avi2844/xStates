@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-const States = ({country}) => {
+const States = ({country, stateHandler, state, cityhandler}) => {
     const [states, setStates] = useState([]);
 
     async function fetchStates(){
         try {
             const res = await fetch(`https://crio-location-selector.onrender.com/country=${country}/states`);
             const data = await res.json();
-            console.log(data);
             setStates(data);
         } catch (error) {
             console.error(error.data);
@@ -16,14 +15,15 @@ const States = ({country}) => {
 
     useEffect(()=>{
         fetchStates();
+        stateHandler('');
     }, [country]);
 
     return (
-        <select name="states">
-            <option value="" disabled selected="selected">Select a State</option>
+        <select name="states" style={{padding : "10px", margin: "10px"}} value={state} onChange={(e)=>{stateHandler(e.target.value)}} disabled={!country}>
+            <option value="" disabled>Select State</option>
             {
-                states.map((ele, index)=> (
-                    <option value={ele} key={index}>{ele}</option>
+                states.map((ele)=> (
+                    <option value={ele}>{ele}</option>
                 ))
             }
         </select>

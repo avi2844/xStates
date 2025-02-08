@@ -15,7 +15,7 @@ function Address() {
       <States country={country} stateHandler={setState} state={state}/>
       <Cities country={country} state={state} city={city} cityHandler={setCity} stateHandler={setState}/>
       {
-        (country && city && state) ? <h2>You selected {city},{state},{country}</h2> : null
+        (country && city && state) ? <h2>You selected {city}, {state}, {country}</h2> : null
       }
     </>
   );
